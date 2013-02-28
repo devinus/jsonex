@@ -1,5 +1,7 @@
 # JSON for Elixir
 
+[![Build Status](https://travis-ci.org/devinus/jsonex.png)](https://travis-ci.org/devinus/jsonex)
+
 ## Encoding
 
 ```elixir
