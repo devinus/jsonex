@@ -1,0 +1,8 @@
+language: erlang
+otp_release:
+  - R15B03
+before_install:
+  - git clone https://github.com/elixir-lang/elixir
+  - make -C elixir
+before_script: "export PATH=`pwd`/elixir/bin:$PATH"
+script: mix do deps.get, test
