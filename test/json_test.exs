@@ -22,7 +22,9 @@ defmodule JSONTest do
   end
 
   test "raises an EncodeError on bad input" do
-    assert JSON.EncodeError[] = catch_error(JSON.encode({}))
+    assert_raise JSON.EncodeError, fn ->
+      JSON.encode({})
+    end
   end
 
   test "decodes null to nil" do
