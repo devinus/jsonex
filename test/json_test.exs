@@ -39,7 +39,19 @@ defmodule JSONTest do
     assert JSON.decode(datetime) == { { 2013, 3, 15 }, { 12, 01, 00 } }
   end
 
+  test "decodes a string that looks like an ISO 8601 date into a string" do
+    json = %b({"date": "20YY-03-15"})
+    assert JSON.decode(json)["date"] == "20YY-03-15"
+  end
+
+  test "decodes a string that looks like an ISO 8601 datetime into a string" do
+    json = %b({"datetime": "20YY-03-15T00:00:00Z"})
+    assert JSON.decode(json)["datetime"] == "20YY-03-15T00:00:00Z"
+  end
+
   test "raises a DecodeError on bad input" do
-    assert JSON.DecodeError[] = catch_error(JSON.decode("{"))
+    assert_raise JSON.DecodeError, fn ->
+      JSON.decode("{")
+    end
   end
 end
