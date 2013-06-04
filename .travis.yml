@@ -3,7 +3,7 @@ otp_release:
   - R16B
 before_install:
   - git clone https://github.com/elixir-lang/elixir
-  - git checkout v0.9.1
+  - cd elixir && git checkout v0.9.1 && cd ..
   - make -C elixir
 before_script: "export PATH=`pwd`/elixir/bin:$PATH"
 script: mix do deps.get, test
