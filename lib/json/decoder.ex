@@ -17,6 +17,9 @@ defmodule JSON.Decoder do
 
       import JSON.Decoder
 
+      @date_format %r/^\d{4}-\d{2}-\d{2}$/
+      @datetime_format %r/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/
+
       defexception DecodeError, message: "cannot decode"
 
       def decode(string, opts // []) do
@@ -34,7 +37,7 @@ defmodule JSON.Decoder do
       def post_decoder(:null), do: nil
 
       def post_decoder(<<yyyy :: binary(4), ?-, mm :: binary(2), ?-, dd :: binary(2)>> = string) do
-        if string =~ %r/^\d{4}-\d{2}-\d{2}$/ do
+        if string =~ @date_format do
           list_to_tuple(lc p inlist [ yyyy, mm, dd ], do: binary_to_integer(p))
         else
           string
@@ -43,7 +46,7 @@ defmodule JSON.Decoder do
 
       def post_decoder(<<yyyy :: binary(4), ?-, mm :: binary(2), ?-, dd :: binary(2), ?T,
                            hh :: binary(2), ?:, nn :: binary(2), ?:, ss :: binary(2), ?Z>> = string) do
-        if string =~ %r/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/ do
+        if string =~ @datetime_format do
           [ year, month, day, hour, minute, second ]
             = lc p inlist [ yyyy, mm, dd, hh, nn, ss ], do: binary_to_integer(p)
           { { year, month, day }, { hour, minute, second } }
