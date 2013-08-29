@@ -17,7 +17,7 @@ defmodule JSON.Encoder do
       defexception EncodeError, message: "cannot encode"
 
       def encode(terms, opts // []) do
-        opts = Keyword.merge([pre_encode: function(pre_encoder/1)], opts)
+        opts = Keyword.merge([pre_encode: &pre_encoder/1], opts)
         try do
           :jsx.encode(terms, opts)
         rescue
