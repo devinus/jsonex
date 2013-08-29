@@ -1,6 +1,6 @@
 language: erlang
 otp_release:
-  - R16B01
+  - R16B
 before_install:
   - git clone -b v0.10.1 --depth 1 https://github.com/elixir-lang/elixir
   - make -C elixir
