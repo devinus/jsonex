@@ -23,7 +23,7 @@ defmodule JSON.Decoder do
       defexception DecodeError, message: "cannot decode"
 
       def decode(string, opts // []) do
-        opts = Keyword.merge([post_decode: function(post_decoder/1)], opts)
+        opts = Keyword.merge([post_decode: &post_decoder/1], opts)
         try do
           case :jsx.decode(string, opts) do
             { :incomplete, _ } -> raise alias!(DecodeError)
