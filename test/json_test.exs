@@ -42,12 +42,12 @@ defmodule JSONTest do
   end
 
   test "decodes a string that looks like an ISO 8601 date into a string" do
-    json = %b({"date": "20YY-03-15"})
+    json = %s({"date": "20YY-03-15"})
     assert JSON.decode(json)["date"] == "20YY-03-15"
   end
 
   test "decodes a string that looks like an ISO 8601 datetime into a string" do
-    json = %b({"datetime": "20YY-03-15T00:00:00Z"})
+    json = %s({"datetime": "20YY-03-15T00:00:00Z"})
     assert JSON.decode(json)["datetime"] == "20YY-03-15T00:00:00Z"
   end
 
